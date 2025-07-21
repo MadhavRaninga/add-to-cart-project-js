@@ -87,11 +87,20 @@
                 });
             })
             .catch(error => console.error('Error loading products:', error));
-            function addToCart(a) {
-                card.push(allProduct[a])
-                localStorage.setItem("madhav",JSON.stringify(card))
+              function addToCart(a) {
+                product = allProduct[a]
+                let find = card.find((a)=> a.id == product.id)
+                if (find) {
+                    find.quantity += 1
+                    alert("Already Exist This Product...")
+                }
+                else{
+                    product.quantity = 1
+                    card.push(product)
+                }
+                localStorage.setItem("madhav",JSON.stringify(card))       
                 
-            }   
+            }    
     </script>
 </body>
 </html>
