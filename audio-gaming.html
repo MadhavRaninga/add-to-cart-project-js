@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio & Gaming - TechHub</title>
     <link rel="stylesheet" href="./style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -16,7 +19,10 @@
                 <div class="logo">
                     <h2>TechHub</h2>
                 </div>
-                <div class="nav-links">
+                <div class="hamburger" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="nav-links" id="navLinks">
                     <a href="electronics.html">Electronics</a>
                     <a href="audio-gaming.html" class="active">Audio & Gaming</a>
                     <a href="photography-fitness.html">Photography & Fitness</a>
@@ -43,16 +49,16 @@
     </section>
 
     <script>
-    let allProduct = []
+        let allProduct = []
         let card = JSON.parse(localStorage.getItem("madhav")) || [];
         fetch('./data/audio-gaming.json')
             .then(response => response.json())
-            .then((products,i) => {
+            .then((products, i) => {
                 console.log(products);
-                
+
                 const productsGrid = document.getElementById('products-grid');
                 allProduct = products
-                
+
                 products.forEach((product, i) => {
                     const productCard = document.createElement('div');
                     productCard.className = 'product-card';
@@ -87,20 +93,25 @@
                 });
             })
             .catch(error => console.error('Error loading products:', error));
-              function addToCart(a) {
-                product = allProduct[a]
-                let find = card.find((a)=> a.id == product.id)
-                if (find) {
-                    find.quantity += 1
-                    alert("Already Exist This Product...")
-                }
-                else{
-                    product.quantity = 1
-                    card.push(product)
-                }
-                localStorage.setItem("madhav",JSON.stringify(card))       
-                
-            }    
+        function addToCart(a) {
+            product = allProduct[a]
+            let find = card.find((a) => a.id == product.id)
+            if (find) {
+                find.quantity += 1
+                alert("Already Exist This Product...")
+            }
+            else {
+                product.quantity = 1
+                card.push(product)
+            }
+            localStorage.setItem("madhav", JSON.stringify(card))
+
+        }
+        function toggleMenu() {
+            const navLinks = document.getElementById("navLinks");
+            navLinks.classList.toggle("show");
+        }   
     </script>
 </body>
+
 </html>
